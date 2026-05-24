@@ -22,4 +22,14 @@ def web_search(query:str) -> str:
 
         return "\n----\n".join(out)
 
-print(web_search.invoke("what is the recent news of war"))
+@tool
+def scrape_url(url: str) -> str:
+    #beautifulsoup -- webscrapping ke kaam atta hai
+    try:
+        resp = requests.get(url, timeout=8, headers={"User-Agent": "Mozilla/5.0"}) #this header show the real user
+        soup = BeautifulSoup(resp.text, "html.parser")
+        for tag in soup(["script", "style", "nav", "footer"]):
+            tag.decompose()
+        return soup.get_text(separator=" ", strip=True)[:3000]
+    except Exception as e:
+        return f"Could not scrape URL:" {str(e)}"
