@@ -11,7 +11,7 @@ tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 @tool
 def web_search(query:str) -> str:
     """Search The web for recent and relaible imformation on a topic. Returns Titles, URL """
-    results = tavily.search(query=query,max_result=3)
+    results = tavily.search(query=query,max_results=3)
 
     out = []
 
@@ -20,7 +20,7 @@ def web_search(query:str) -> str:
             f"title':{r['title']}\nURL: {r['url']}\nSnippet: {r['content'][:300]}\n"
         )
 
-        return "\n----\n".join(out)
+    return "\n----\n".join(out)
 
 @tool
 def scrape_url(url: str) -> str:
@@ -32,4 +32,6 @@ def scrape_url(url: str) -> str:
             tag.decompose()
         return soup.get_text(separator=" ", strip=True)[:3000]
     except Exception as e:
-        return f"Could not scrape URL:" {str(e)}"
+        return f"Could not scrape URL: {str(e)}"
+    
+print(scrape_url.invoke("https://www.iplt20.com/news/4373/tata-ipl-2026-match-70-kkr-v-dc-match-report"))
