@@ -13,6 +13,14 @@ llm = ChatOpenAI(model = "gpt-40-mini", temperature=0)
 #1st agent
 def build_search_agent():
     return create_agent(
-        model = llm
+        model = llm,
         tools= [web_search]
+    )
+
+#2nd agent
+
+def build_reader_agent():
+    return create_react_agent(
+        model = llm,
+        tools = [scrape_url]
     )
