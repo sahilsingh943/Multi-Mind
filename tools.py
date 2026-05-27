@@ -20,7 +20,7 @@ def web_search(query:str) -> str:
             f"title':{r['title']}\nURL: {r['url']}\nSnippet: {r['content'][:300]}\n"
         )
 
-    return "\n----\n".join(out)
+     return "\n----\n".join(out)
 
 @tool
 def scrape_url(url: str) -> str:
